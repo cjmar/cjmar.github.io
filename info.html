@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Graphing - SolarDB</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <body>
+        <header>
+            <div html-include="nav.html"></div>
+        </header>
+        <div class="container">
+            <main role="main" class="pb-3">
+                <style>
+                    #container1
+                    {
+                        width:100%;
+                        height:100%;
+                    }
+                    .genericContainer
+                    {
+                        height:100%;
+                        float:left;
+                        text-align:center;
+                    }
+                    .inlineDiv
+                    {
+                        display:inline-block;
+                        text-align: center;
+                        margin:0 auto;
+                    }
+                    #formDiv
+                    {
+                        width:auto;
+                        border:solid 1px black;
+                        float:left;
+                        padding:2px;
+                        margin:1px;
+                        margin-bottom:3px;
+                    }
+                    .checkBoxContainer
+                    {
+                    border: solid black 1px;
+                    float:left;
+                    padding: 2px;
+                    margin: 1px;
+                    margin-bottom: 3px;
+                    }
+                    .checkBoxContainerCenter
+                    {
+                        border:solid 1px black;
+                        margin:1px;
+                        padding:2px;
+                        margin-bottom:3px;
+                    }
+                    .checkBoxList
+                    {
+                        display:none;
+                    }
+                    .sideBySide
+                    {
+                        width:50%;
+                        height:100%;
+                        float:left;
+                        overflow-y:auto;
+                    }
+                    .tableStyle
+                    {
+                        border:solid 1px black;
+                        padding:1px;
+                    }
+                    th
+                    {
+                        border-left:solid black 1px;
+                    }
+                    .tableStyle tr th
+                    {
+                        font-size:8pt;
+                        text-align:center;
+                    }
+                    .clear
+                    {
+                        clear:both;
+                    }
+                    canvas
+                    {
+                        border:solid black 1px;
+                    }
+                </style>
+                <div id="formDiv">
+                    <form method="post" action="">
+                        <label for="dateStart">Start Date</label>
+                        <input type="date" name="startDate" value="2020-05-15" min="2020-05-15" max="2020-05-23"/>
+                
+                        <label for="dateEnd">End Date</label>
+                        <input type="date" name="endDate" value="2020-05-16" min="2020-05-15" max="2020-05-23" />
+                        <br />
+                        <div class="inlineDiv">
+                            <div class="checkBoxContainer">
+                                <label for="showWeather">Load Weather Readings</label>
+                                <input type="checkbox" id="showWeatherReading" name="showWeather" value="false" onchange="toggleCheckbox('showWeatherReading')" />
+                            </div>
+                            <div class="checkBoxContainer">
+                                <label for="showPower">Load Power Readings</label>
+                                <input type="checkbox" id="showPowerReading" name="showPower" value="false" onchange="toggleCheckbox('showPowerReading');"/>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                        <label for="PlantNum" style="float:left;">Plant</label>
+                        <select id="PlantNum" style="float:left;" name="plantNum">
+                                        <option selected value="4135001">4135001</option>
+                                        <option value="4136001">4136001</option>
+                                    <option value="All">All</option>
+                        </select>
+                        <input type="submit" style="float:right;" value="Submit" />
+                    </form>
+                </div>
+                <div id="textBox">
+                    <p>Choose the range of dates of data to be graphed.</p>
+                    <p>Select which types of data you would like to see, and for which power plant.</p>
+                </div>
+                <div class="clear"><br /></div>
+                <hr />
+                <div class="genericContainer">
+                    <canvas id="graph" width="800" height="500">Your browser does not support the canvas element.</canvas>
+                </div>
+                <div class="genericContainer" style="width:25%;margin-left:3px;">
+                    <div class="genericContainer" id="GUIcontrol"></div>
+                </div>
+            </main>
+        </div>
+        <script type="text/javascript" src="site2.js"></script>
+        <script type="text/javascript" src="data/facilities.js"></script>
+        <script type="text/javascript" src="data/power.js"></script>
+        <script type="text/javascript" src="data/weather.js"></script>
+        <script type="text/javascript" src="data/sources.js"></script>
+        <script>
+            includeHTML();
+            onReady();
+        </script>
+    </body>
+
+</html>
