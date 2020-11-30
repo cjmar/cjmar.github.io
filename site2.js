@@ -13,7 +13,6 @@
 function setCheckbox(id, bool)
 {
     let e = document.getElementById(id);
-
     if (e == null)
         console.log(id + " is null in setCheckbox(), tried setting to " + bool);
 
@@ -44,10 +43,11 @@ function toggleCheckbox(id)
 
 /*  Input:  None
  *  Output: None
- *  Desc:   Called on page load of a POST document. Sets up data to be displayed
+ *  Desc:   Called after the page is loaded
  */
 function onReady()
 {
+    //parseData is a copy from the .NET Core project. The parameters here are from seperate js files included in html
     parseData(facilities, weather, power, powerSources, -1);
     console.log("data");
     console.log(data);
@@ -132,17 +132,15 @@ function parseData(facilities, weather, power, powerSource, plantSelect) {
     //Add weather readings, sorted by date and inserted into the facility they belong to
     for (i = 0; i < weather.length; i++) {
         let d = data.getFac(weather[i].plantNumber);
-        if (d) {
+        if (d) 
+        {
             d.weather.push(
                 {
                     "ambientTemp": weather[i].ambientTemp, "moduleTemp": weather[i].moduleTemp, "irradiation": weather[i].irradiation
                 });
             //If all plants are selected (-1) then add weather dates from the first known plant (4135001)
-            if (weather[i].plantNumber == 4135001 && plantSelect == -1)
-            {
-                data.dates.push(weather[i].dateAndTime);
-            }
-            else //Only one plant being used in data
+            //Changed from original since plantSelect is always == -1
+            if (weather[i].plantNumber == 4135001)
             {
                 data.dates.push(weather[i].dateAndTime);
             }
@@ -255,6 +253,10 @@ const charts = (() =>
     let showModuleData;
     let showIrridData;
 
+    let startDay = "2020-05-15T00:00:00";
+    let endDay = "2020-05-15T23:45:00";
+    let indexPoints = [];
+
 /*  Input:  id of chart element
 *   Output: None
 *   Desc:   Initializes the charts namespace
@@ -274,8 +276,6 @@ const charts = (() =>
             showModuleData = true;
             showIrridData = true;
         }
-
-        popXlabel();
         draw();
     }
 
@@ -287,6 +287,9 @@ const charts = (() =>
     {
         legend = [];
         context.clearRect(0, 0, canvas.width, canvas.height);
+        indexPoints = getIndexPointsUsingDates().slice(0);
+
+        popXlabel();
 
         if (plotData())
         {
@@ -445,16 +448,14 @@ const charts = (() =>
             moduleScale = 2;
             radiateScale = 3;
         }
-
         for (index = 0; index < data.facNums.length; index++)//For each facility. 
         {
             let currPlant = data.facNums[index];
             let d = data.getFac(currPlant);
 
-            if (d.weather.length < 1) continue; //Skip if empty array
             if (!document.getElementById("showPlant" + currPlant).checked) continue;
 
-            let xScale = chartW / d.weather.length;
+            let xScale = chartW / (indexPoints[1] - indexPoints[0]);
 
             //Setup initial points
             let ap = [[0, 0], [offSet, 0], "#ff0000", -1]; //{ [lastX, lastY], [nowX, nowY], color, yscale}
@@ -466,7 +467,7 @@ const charts = (() =>
             let maxMp = -1;
             let maxRp = -1;
             //Linear scan to setup scaling
-            for (i = 0; i < d.weather.length; i++)
+            for (i = indexPoints[0]; i < indexPoints[1]; i++)
             {
                 maxAp = (maxAp > d.weather[i]["ambientTemp"]) ? maxAp : d.weather[i]["ambientTemp"];
                 maxMp = (maxMp > d.weather[i]["moduleTemp"]) ? maxMp : d.weather[i]["moduleTemp"];
@@ -489,22 +490,23 @@ const charts = (() =>
             showModuleData = document.getElementById("showModuleData").checked;
             showIrridData = document.getElementById("ShowIrridData").checked;
 
-            for (i = 0; i < d.weather.length; i++)
+            let xVal = 0;
+            for (i = indexPoints[0]; i < indexPoints[1]; i++)
             {
                 //Draw the values
                 if (showAmbientData) {
-                    setPoint(ap, i, d.weather[i]["ambientTemp"], xScale);
+                    setPoint(ap, xVal, d.weather[i]["ambientTemp"], xScale);
                     plotPoint(ap);
                 }
                 if (showModuleData) {
-                    setPoint(mp, i, d.weather[i]["moduleTemp"], xScale);
+                    setPoint(mp, xVal, d.weather[i]["moduleTemp"], xScale);
                     plotPoint(mp);
                 }
                 if (showIrridData) {
-                    setPoint(rp, i, d.weather[i]["irradiation"], xScale)
+                    setPoint(rp, xVal, d.weather[i]["irradiation"], xScale)
                     plotPoint(rp)
                 }
-                
+                xVal++;
             }
         }//End for loop
         drawWeatherLabel();
@@ -571,7 +573,8 @@ const charts = (() =>
             if (!document.getElementById("showPlant" + currPlant).checked) continue;
 
             let s = d.srcKeys[0];
-            let xScale = chartW / d[s].length; //Scale everything to this value
+            //let xScale = chartW / d[s].length; //Scale everything to this value
+            let xScale = chartW / (indexPoints[1] - indexPoints[0]);
 
             //Start halfway up if scale = 2, or bottom
             let ac = [[0, 0], [offSet, chartH / powerScale], "#AA00FF", -1]; //These values go about 400-800
@@ -583,7 +586,7 @@ const charts = (() =>
                 for (srcIndex = 0; srcIndex < d.srcKeys.length; srcIndex++) //For each source key in facility
                 {
                     let sourceStr = d.srcKeys[srcIndex];
-                    for (i = 0; i < d[sourceStr].length; i++)
+                    for(i = indexPoints[0]; i < indexPoints[1]; i++)
                     {
                         maxAc = (maxAc > d[sourceStr][i]["aC_Power"]) ? maxAc : d[sourceStr][i]["aC_Power"];
                         maxDc = (maxDc > d[sourceStr][i]["dC_Power"]) ? maxDc : d[sourceStr][i]["dC_Power"];
@@ -616,20 +619,22 @@ const charts = (() =>
                     ac[0][1] = d[sourceStr][0]["aC_Power"] * ac[3];
                     dc[0][1] = d[sourceStr][0]["dC_power"] * dc[3];
 
-                    for (i = 0; i < d[sourceStr].length; i++)
+                    let xVal = 0;
+                    for(i = indexPoints[0]; i < indexPoints[1]; i++)
                     {
-                        setPoint(ac, i, d[sourceStr][i]["aC_Power"], xScale, yOffSet);
+                        setPoint(ac, xVal, d[sourceStr][i]["aC_Power"], xScale, yOffSet);
                         plotPoint(ac);
 
-                        setPoint(dc, i, d[sourceStr][i]["dC_Power"], xScale, yOffSet);
+                        setPoint(dc, xVal, d[sourceStr][i]["dC_Power"], xScale, yOffSet);
                         plotPoint(dc);
+                        xVal++;
                     }
                 }
             }
             else //Show averaged
             {
                 //Linear scan for scaling setup
-                for (i = 0; i < d.avgPower.length; i++) //For each source key in facility
+                for(i = indexPoints[0]; i < indexPoints[1]; i++)
                 {
                     maxAc = (maxAc > d.avgPower[i]["avgAC"]) ? maxAc : d.avgPower[i]["avgAC"];
                     maxDc = (maxDc > d.avgPower[i]["avgDC"]) ? maxDc : d.avgPower[i]["avgDC"];
@@ -648,14 +653,20 @@ const charts = (() =>
                 //Plot
                 let yOffSet = 0;
                 if (document.getElementById("weatherGraph").checked) yOffSet = chartH / powerScale;
-                for (i = 0; i < d.avgPower.length; i++) //For each source key in facility
+
+                let xVal = 0;
+                for(i = indexPoints[0]; i < indexPoints[1]; i++)
                 {
-                    setPoint(ac, i, d.avgPower[i]["avgAC"], xScale, yOffSet);
+                    setPoint(ac, xVal, d.avgPower[i]["avgAC"], xScale, yOffSet);
                     plotPoint(ac);
 
-                    setPoint(dc, i, d.avgPower[i]["avgDC"], xScale, yOffSet)
+                    setPoint(dc, xVal, d.avgPower[i]["avgDC"], xScale, yOffSet)
                     plotPoint(dc);
+                    xVal++;
                 }
+                
+                //Easy function i can test in
+
             }
         }
         drawPowerLabel(maxPower, powerScale);
@@ -737,7 +748,39 @@ const charts = (() =>
         context.stroke();
     }
 
-    return { init, draw};
+    /*  Input:  dateStart string, dateEnd string
+                Dates follow this format "yyyy-mm-dd"
+    *   Output: None
+    *   Desc:   Sets the range of dates to be displayed
+    */
+    const setDateRange = (ds, de) =>
+    {
+        startDay = ds.concat("T00:00:00");
+        endDay = de.concat("T23:45:00");
+
+        let pos = endDay.indexOf("T") - 2;
+        let front = endDay.slice(0, pos);
+        let day = endDay.slice(pos, pos + 2);
+        day = parseInt(day) - 1;
+        let end = endDay.slice(pos + 2);
+
+        endDay = front + day + end;
+    } 
+
+    /*  Input:  None
+    *   Output: None
+    *   Desc:   Calculates index starting and stopping points based on start and end date selections
+    *           Returns an index[start int, end int];
+    */
+    const getIndexPointsUsingDates = () =>
+    {
+        let i1 = data.dates.findIndex(d => d == startDay);
+        let i2 = data.dates.findIndex(d => d == endDay);
+        console.log("Show date index range of " + i1 + " - " + i2);
+        return [i1, i2];
+    }
+   
+    return { init, draw, setDateRange};
 })();
 
 //######################################################################################################################################
@@ -818,7 +861,7 @@ const optionsGUI = (() =>
 
             if (data.powerExists)
             {
-                setCheckbox("showPowerReading", true);
+                //setCheckbox("showPowerReading", true);
                 setCheckbox(id2, true);
             }
             else
@@ -829,7 +872,7 @@ const optionsGUI = (() =>
             }
             if (data.weatherExists)
             {
-                setCheckbox("showWeatherReading", true);
+                //setCheckbox("showWeatherReading", true);
                 setCheckbox(id1, true)
             }
             else
@@ -1008,7 +1051,6 @@ const optionsGUI = (() =>
         boxNode.appendChild(labelNode);
         boxNode.appendChild(inputNode);
         rDiv.appendChild(boxNode);
-        //setCheckbox(id, true);
         return divId;
     }
 
@@ -1092,3 +1134,77 @@ function includeHTML() {
       }
     }
   }
+
+/*  Input:  None
+*   Output: None
+*   Desc:   Called on form submit button press.
+*/
+ function formSubmit()
+ {  
+    let dataValidated = false;
+    //Add functionality that makes sure the end date is after the start date. Print a message in lower left of the div depending. Red if error
+
+    let start = document.getElementById("startDate").value;
+    let end = document.getElementById("endDate").value;
+    let msg = document.getElementById("formMessage");
+    msg.innerHTML = "";
+
+    if(checkDateOrder(start, end))
+    {
+        dataValidated = true;
+    }
+    else //Check a couple edge cases
+    {   
+        //Check to see if its last day of data. This code should never be called because of maximum value
+        if(start  == "2020-05-23")
+        {
+            let pos = start.length - 2;    //These should always be the same
+            let front = start.slice(0, pos);
+            let day = start.slice(pos, pos + 2);
+            day = parseInt(day);
+            day--;
+            start = front + day;
+            dataValidated = true;
+        }
+        else if(start == end) //Increment end date by one day if the range is equal
+        {
+            let pos = end.length - 2;    //These should always be the same
+            let front = end.slice(0, pos);
+            let day = end.slice(pos, pos + 2);
+            day = parseInt(day);
+            day++;
+            end = front + day;
+            dataValidated = true;
+        }
+        else    //Means the start day comes after the end day
+        {
+            msg.innerHTML = "Start date must come before end date";
+        }
+    }
+
+
+    if(dataValidated)
+    {
+    charts.setDateRange(start, end);
+    charts.draw();
+    }
+ }
+
+/*  Input:  d1 string, d2 string
+            Dates follow this format "yyyy-mm-dd"
+*   Output: Boolean value
+*   Desc:   Checks of LHS date comes before RHS date
+            ie: if ( LHS < RHS ) return true;
+*/
+function checkDateOrder(d1, d2)
+{
+    let pos = d2.length - 2;    //These should always be the same
+    let day1 = d1.slice(pos, pos + 2);
+    let day2 = d2.slice(pos, pos + 2);
+    day1 = parseInt(day1);
+    day2 = parseInt(day2);
+
+    if(day1 < day2) return true;
+    else return false;
+
+} 

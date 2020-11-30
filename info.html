@@ -87,33 +87,29 @@
                     {
                         border:solid black 1px;
                     }
+                    .defaultButton
+                    {
+                        background-color:#aaaaaa;
+                        float:right;
+                        color:#ffffff;
+                        border-radius:8px;
+                    }
+                    .defaultButton:hover
+                    {
+                        background-color:#999999;
+                    }
                 </style>
                 <div id="formDiv">
                     <form method="post" action="">
                         <label for="dateStart">Start Date</label>
-                        <input type="date" name="startDate" value="2020-05-15" min="2020-05-15" max="2020-05-23"/>
+                        <input type="date" id="startDate" value="2020-05-15" min="2020-05-15" max="2020-05-22"/>
                 
                         <label for="dateEnd">End Date</label>
-                        <input type="date" name="endDate" value="2020-05-16" min="2020-05-15" max="2020-05-23" />
+                        <input type="date" id="endDate" value="2020-05-16" min="2020-05-16" max="2020-05-23" />
                         <br />
-                        <div class="inlineDiv">
-                            <div class="checkBoxContainer">
-                                <label for="showWeather">Load Weather Readings</label>
-                                <input type="checkbox" id="showWeatherReading" name="showWeather" value="false" onchange="toggleCheckbox('showWeatherReading')" />
-                            </div>
-                            <div class="checkBoxContainer">
-                                <label for="showPower">Load Power Readings</label>
-                                <input type="checkbox" id="showPowerReading" name="showPower" value="false" onchange="toggleCheckbox('showPowerReading');"/>
-                            </div>
-                        </div>
                         <div class="clear"></div>
-                        <label for="PlantNum" style="float:left;">Plant</label>
-                        <select id="PlantNum" style="float:left;" name="plantNum">
-                                        <option selected value="4135001">4135001</option>
-                                        <option value="4136001">4136001</option>
-                                    <option value="All">All</option>
-                        </select>
-                        <input type="submit" style="float:right;" value="Submit" />
+                        <span id="formMessage"></span>
+                        <button type="button" class="defaultButton" onclick="formSubmit()">Submit</button>
                     </form>
                 </div>
                 <div id="textBox">
