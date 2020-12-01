@@ -18,7 +18,7 @@
             <p>
             SolarDB is a useful tool which can be used to oversee the overall function of a power plant. 
             The data used can be found <a href="https://www.kaggle.com/anikannal/solar-power-generation-data">here</a>, it was collected from two solar power plants in India over a period of 34 days. 
-            There are two versions of SolarDB, the interactive one here is served statically over Github pages, and has included in it about 8 days worth of information.
+            There are two versions of SolarDB, the interactive one here is served statically over Github Pages, and has included in it about 8 days' worth of information.
             The other version is built in .NET Core, complete with a SQL database using EF Core.
             The .NET Core version is intended to be usable as a tool for any power plant who wishes to efficiently save, log, and display day to day operations.
             </p>
@@ -26,7 +26,7 @@
             At the start, the intended goal was to create a tool to alleviate the complexity of managing information for a large facility.
             As it sits, SolarDB solves its initial goal in saving and displaying information.
             The only thing it is missing is an API to add more logs to the database.
-            The majority of the work has gone into a hand built interactive graph which can be found in the "Graph Tool" navigation link.
+            Most of the work has gone into a hand built interactive graph which can be found in the "Graph Tool" navigation link.
             For me personally, this project was my deepest delve into Javascript because of the graphing tool and its interface.
             </p>
             <p>
@@ -36,7 +36,7 @@
                 <li>Display only the weather sensor data</li>
                 <li>Display only the power sensor data</li>
                 <li>Choose between displaying an averaged value of all power arrays, or choose a set of specific power arrays </li>
-                <li>Overlay the weather and power graphs on top of each other in order to compare values</li>
+                <li>Overlay the weather and power graphs on top of each other to compare values</li>
             </ul>
             </p>
             <p>
@@ -44,15 +44,15 @@
             <ul>
                 <li>Can we predict the power generation for next couple of days? - this allows for better grid management</li>
                 <li>Can we identify the need for panel cleaning/maintenance?</li>
-                <li>Can we identify faulty or suboptimally performing equipment?</li>
+                <li>Can we identify faulty or sub optimally performing equipment?</li>
             </ul>
             <br>
             <img src="data/irrid-power-ratio.png" class="image" style="float:right;">
-            SolarDB is capable of answering most of these concerns.
+            SolarDB can answer most of these concerns.
             The graph tool especially allows for a user to easily see patterns in the data.
             In this first image it is clear to a user there is a definite ratio between the irradiation values and power output values.
             This screenshot was taken on the first day, overlaying the irradiation and power graphs for plant 4135001.
-            Knowing this ratio, it should be simple to calculate power generation on average over the course of the next few days, if you have accurate weather forcasting.
+            Knowing this ratio, it should be simple to calculate power generation on average over the course of the next few days, if you have accurate weather forecasting.
             </p>
             <p>
                 Monitoring the irradiation to power output ratio over a period could be used to estimate if an array is in need of cleaning or maintenance. 
@@ -71,8 +71,8 @@
             <div class="clear"></div>
             <br>
             <p>
-            At its core, SolarDB is a fairly simple CRUD application built using .NET Core.
-            It boasts a custom made graphing tool capable of showing off the data in a useful way for the user.
+            At its core, SolarDB is a CRUD application built using .NET Core.
+            It boasts a custom-made graphing tool capable of showing off the data in a useful way for the user.
             In the future, SolarDB can be upgraded to allow for automatic data analyzation to immediately tag areas of concern for the user.
             SolarDB would be a perfect tool to help oversee a power plant and act as a solid base to build more tools on top of.
             I hope you enjoyed reading through this quick write up and playing with my graph, I had a lot of fun making while learning Javascript and hope you had fun finding ways to break it.
