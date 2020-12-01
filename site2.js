@@ -376,7 +376,12 @@ const charts = (() =>
 */
     const popXlabel = () =>
     {
-        for (i = 0; i < data.dates.length; i++)
+        let t = [];
+        //Reset xLabel since it can change at any time
+        //In the past I've had issues with stuff like xLabel = [], but never any using slice on an empty array
+        xLabel = t.slice(0);
+        dayCount = 0; 
+        for(i = indexPoints[0]; i < indexPoints[1]; i++)
         {
             let text = data.dates[i];
             let n = text.indexOf("T");
@@ -436,7 +441,7 @@ const charts = (() =>
         legend.push(["Irradiation", "#999900"]);
 
         //If power graph isnt being shown, display weather using full chart
-        if (!document.getElementById("powerGraph").checked)
+        if (!document.getElementById("powerGraph").checked || document.getElementById("overlayGraphs").checked)
         {
             ambientScale = 1;
             moduleScale = 1;
@@ -488,7 +493,7 @@ const charts = (() =>
 
             showAmbientData = document.getElementById("showAmbientData").checked;
             showModuleData = document.getElementById("showModuleData").checked;
-            showIrridData = document.getElementById("ShowIrridData").checked;
+            showIrridData = document.getElementById("showIrridData").checked;
 
             let xVal = 0;
             for (i = indexPoints[0]; i < indexPoints[1]; i++)
@@ -509,7 +514,8 @@ const charts = (() =>
                 xVal++;
             }
         }//End for loop
-        drawWeatherLabel();
+        if(!document.getElementById("overlayGraphs").checked)
+            drawWeatherLabel();
     }
 
 /*  Input:  None
@@ -555,7 +561,7 @@ const charts = (() =>
         let maxDc = -1;
         let powerScale;
 
-        if (!document.getElementById("weatherGraph").checked)
+        if (!document.getElementById("weatherGraph").checked || document.getElementById("overlayGraphs").checked)
         {
             powerScale = 1;
         }
@@ -601,13 +607,12 @@ const charts = (() =>
                 //
                 ac[3] = dc[3] = chartH / powerScale / maxPower;
 
-                //Not minusing chart here so these values are on top if showing weather
                 ac[0][1] = d[d.srcKeys[0]][0]["aC_Power"] * ac[3];
                 dc[0][1] = d[d.srcKeys[0]][0]["dC_power"] * dc[3];
 
                 //Plot
                 let yOffSet = 0;
-                if (document.getElementById("weatherGraph").checked) yOffSet = chartH / powerScale;
+                if (document.getElementById("weatherGraph").checked && !document.getElementById("overlayGraphs").checked) yOffSet = chartH / powerScale;
                 for (srcIndex = 0; srcIndex < d.srcKeys.length; srcIndex++) //For each source key in facility
                 {
                     let sourceStr = d.srcKeys[srcIndex];
@@ -652,7 +657,7 @@ const charts = (() =>
 
                 //Plot
                 let yOffSet = 0;
-                if (document.getElementById("weatherGraph").checked) yOffSet = chartH / powerScale;
+                if (document.getElementById("weatherGraph").checked && !document.getElementById("overlayGraphs").checked) yOffSet = chartH / powerScale;
 
                 let xVal = 0;
                 for(i = indexPoints[0]; i < indexPoints[1]; i++)
@@ -669,7 +674,9 @@ const charts = (() =>
 
             }
         }
-        drawPowerLabel(maxPower, powerScale);
+
+        //if(!document.getElementById("overlayGraphs").checked)
+            drawPowerLabel(maxPower, powerScale);
     }
 
 /*  Input:  None
@@ -776,7 +783,6 @@ const charts = (() =>
     {
         let i1 = data.dates.findIndex(d => d == startDay);
         let i2 = data.dates.findIndex(d => d == endDay);
-        console.log("Show date index range of " + i1 + " - " + i2);
         return [i1, i2];
     }
    
@@ -808,159 +814,106 @@ const optionsGUI = (() =>
     const init = (id) =>
     {
         guiDiv = document.getElementById(id);    
-        //Creates a checkbox for each plant to toggle the data on/off
-        if (data.plantSelect == -1)
+ 
+        guiDiv.appendChild(document.createTextNode("Display Power Plants"));
+
+        for (i = 0; i < data.facNums.length; i++)
         {
-            let d = document.createElement("div");
-            d.classList.add("inlineDiv");
-            guiDiv.appendChild(d);
-            let textNode = document.createElement("p");
-            textNode.innerHTML = "Select which specific plant to display";
-            d.appendChild(textNode);
-            for (i = 0; i < data.facNums.length; i++)
-            {
-                let id = "showPlant" + data.facNums[i];
-                let txt = "Plant " + data.facNums[i];
-                createCheckbox(d, id, txt, "checkBoxContainer");
-                setCheckbox(id, true);
-            }
-        }
-        else //Creates a hidden untoggleable checkbox with the right id
-        {
-            let id = "showPlant" + data.plantSelect;
-            let txt = "Plant " + data.plantSelect;
-            box = createCheckbox(guiDiv, id, txt);
-            document.getElementById(box).style.display = "none";
+            let id = "showPlant" + data.facNums[i];
+            let txt = "Plant " + data.facNums[i];
+            createCheckbox1(guiDiv, id, txt, "guiCheckboxNoMargin");
             setCheckbox(id, true);
         }
-        /*  The scaling for each graph is based on whether the other one is being displayed
-         *  Both checkboxes need to be created even if only one is being displayed
-         *  If only one chart type is being displayed, these check boxes are hidden
-         *      and the one with no data is unchecked
-         */
-        if (data.weatherExists || data.powerExists)
-        {
-            let id1 = "weatherGraph";
-            let txt1 = "Weather Graph"
-            let id2 = "powerGraph";
-            let txt2 = "Power Graph";
+        //createCheckbox returns id of the div its in for hiding
+        guiDiv.appendChild(document.createElement("br"));
+        guiDiv.appendChild(document.createTextNode("Displayed Data:"));
+        createCheckbox1(guiDiv, "overlayGraphs", "Overlay Graphs", "guiCheckboxNoMargin");
+        setCheckbox("overlayGraphs", false);
 
-            //Get id's to hide them later if all types arent loaded with data
+        guiDiv.appendChild(document.createElement("br"));
+        createCheckbox1(guiDiv, "weatherGraph", "Weather Graph", "guiCheckboxNoMargin");
+        setCheckbox("weatherGraph", true);
 
-            let d = document.createElement("div");
-            guiDiv.appendChild(d);
-            let weatherBox = createCheckbox(d, id1, txt1, "checkBoxContainer");
-            let powerBox = createCheckbox(d, id2, txt2, "checkBoxContainer");
-            d.classList.add("inlineDiv");
-
-            setCheckbox(id1, true);
-            setCheckbox(id2, true);
-
-            if (data.weatherExists) setCheckbox(id1, true);
-            if (data.powerExists) setCheckbox(id2, true);
-
-            if (data.powerExists)
-            {
-                //setCheckbox("showPowerReading", true);
-                setCheckbox(id2, true);
-            }
-            else
-            {
-                toggleHideElement(weatherBox);
-                toggleHideElement(powerBox);
-                setCheckbox(id2, false);
-            }
-            if (data.weatherExists)
-            {
-                //setCheckbox("showWeatherReading", true);
-                setCheckbox(id1, true)
-            }
-            else
-            {
-                toggleHideElement(weatherBox);
-                toggleHideElement(powerBox);
-                setCheckbox(id1, false);
-            }
+        if(data.weatherExists)
+        {   
+            weatherGUI();
         }
-        createChartGUI();
+        guiDiv.appendChild(document.createElement("br"));
+        createCheckbox1(guiDiv, "powerGraph", "Power Graph", "guiCheckboxNoMargin");
+        setCheckbox("powerGraph", true);
+
+        if (data.powerExists)
+        {
+            powerGUI();
+        }
     }
 
 /*  Input:  None
 *   Output: None
-*   Desc:   Calls appropriate functions if data elements exist
-*/
-    const createChartGUI = () =>
-    {
-        if (data.powerExists)
-        {
-            powerGUIdiv = powerGUI();
-        }
-        if (data.weatherExists)
-        {
-            weatherGUIdiv = weatherGUI();
-        }
-    }
-
-/*  Input:  None
-*   Output: id of div element containing every element created in this function
 *   Desc:   Creates GUI elements for power reading display
 */
     const powerGUI = () =>
     {
-        let id = "powerGUIdiv";
-        let powerDiv = document.createElement("div");
-        powerDiv.setAttribute("id", id);
-        powerDiv.classList.add("inlineDiv");
+        //Put everything in this div to easily tab them all over
 
-        createCheckbox(powerDiv, "showAveragedPower", "Show Averaged Power");
+        let avgPowerBox = createCheckbox1(guiDiv, "showAveragedPower", "Show Averaged Data", "guiCheckboxNoMargin");
+        setCheckbox("showAveragedPower", true);
+        document.getElementById(avgPowerBox).classList.add("tabbedContent");
+
+        //Quickfix until i can figure something else out about this
+        let pNode = document.createElement("p");
+        pNode.style.marginLeft = "5em";
+        pNode.style.marginBottom = "-7px";
+        pNode.style.marginTop = "-7px";
+        pNode.innerHTML = "or";
+        guiDiv.appendChild(pNode);
 
         //Create list of every power source for a select,
         //[["powerControls", "Power Controls"], ["weatherControls", "Weather Controls"]];
         let arr = [];
-        arr.push({ "name": "Show All", "value" : "allVal"});
+        arr.push({ "name": "All Power Arrays", "value" : "allVal"});
         for (index = 0; index < data.facNums.length; index++)
-        {
-            let fac = data.facNums[index];
-            let d = data.getFac(fac);
-            if (d)
+        {   
+            let id = "showPlant" + data.facNums[index];
+            if(document.getElementById(id).checked)
             {
-                for (i = 0; i < d.srcKeys.length; i++)
+                let fac = data.facNums[index];
+                let d = data.getFac(fac);
+                if (d)
                 {
-                    let str = d.srcKeys[i] + "select";  //id of this select
-                    arr.push({ "name" : d.srcKeys[i], "value" : str });
+                    for (i = 0; i < d.srcKeys.length; i++)
+                    {
+                        let str = d.srcKeys[i] + "select";  //id of this select
+                        arr.push({ "name" : d.srcKeys[i], "value" : str });
+                    }
                 }
             }
         }
-        powerGUIselect = createSelect(powerDiv, "powerGUIselect", "Or Select Specific Sources<br>(up/down arrow keys work)", arr);
-        guiDiv.appendChild(powerDiv);
-        document.getElementById(powerGUIselect).value = "allVal";
-        setCheckbox("showAveragedPower", true);
-        return id;
+        powerGUIselect = createSelect(guiDiv, "powerGUIselect", "", arr);
+        document.getElementById(powerGUIselect).classList.add("tabbedContent");
     }
 
 /*  Input:  None
-*   Output: id of div element containing every element created in this function
+*   Output: None
 *   Desc:   Creates GUI elements for weather reading display
 */
     const weatherGUI = () =>
     {
-        let id = "weatherGUIdiv"
-        let weatherDiv = document.createElement("div");
-        weatherDiv.setAttribute("id", id);
-        weatherDiv.classList.add("inlineDiv");
+        let ambientBox = createCheckbox1(guiDiv, "showAmbientData", "Ambient Data", "guiCheckboxNoMargin");
+        setCheckbox("weatherGraph", true);
+        document.getElementById(ambientBox).classList.add("tabbedContent");
 
-        //Show ambient data
-        createCheckbox(weatherDiv, "showAmbientData", "Show Ambient Temp");
-        //Show module data
-        createCheckbox(weatherDiv, "showModuleData", "Show Module Temp");
-        //Show irridation data
-        createCheckbox(weatherDiv, "ShowIrridData", "Show Irradiation");
+        let moduleBox = createCheckbox1(guiDiv, "showModuleData", "Module Data", "guiCheckboxNoMargin");
+        setCheckbox("weatherGraph", true);
+        document.getElementById(moduleBox).classList.add("tabbedContent");
 
-        guiDiv.appendChild(weatherDiv);
+        let irridBox = createCheckbox1(guiDiv, "showIrridData", "Irradiation Data", "guiCheckboxNoMargin");
+        setCheckbox("weatherGraph", true);
+        document.getElementById(irridBox).classList.add("tabbedContent");
+
         setCheckbox("showAmbientData", true);
         setCheckbox("showModuleData", true);
-        setCheckbox("ShowIrridData", true);
-        return id;
+        setCheckbox("showIrridData", true);
     }
 
 /*  Input:  id of select element calling this event
@@ -1050,6 +1003,30 @@ const optionsGUI = (() =>
 
         boxNode.appendChild(labelNode);
         boxNode.appendChild(inputNode);
+        rDiv.appendChild(boxNode);
+        return divId;
+    }
+    //margin left 40px for a "tabbed" checkbox
+    const createCheckbox1 = (rDiv, id, label, cls="") =>
+    {
+        //Create containing div for the box so it can be hidden if needed
+        let boxNode = document.createElement("div");
+        boxNode.classList.add(cls);
+        let divId = id + "div";
+        boxNode.setAttribute("id", divId);
+
+        let inputNode = document.createElement("input");
+        inputNode.setAttribute("id", id);
+        inputNode.setAttribute("type", "checkbox")
+        inputNode.classList.add("checkmark");
+        inputNode.addEventListener("change", function() {charts.draw(); }, false);
+
+        let labelNode = document.createElement("label");
+        labelNode.setAttribute("for", id);
+        labelNode.innerHTML = label;
+
+        boxNode.appendChild(inputNode);
+        boxNode.appendChild(labelNode);
         rDiv.appendChild(boxNode);
         return divId;
     }
