@@ -1,0 +1,109 @@
+.image
+{
+    width:700px;
+    height:350px;
+}
+
+#container1
+{
+    width:100%;
+    height:100%;
+}
+.genericContainer
+{
+    height:100%;
+    float:left;
+}
+.inlineDiv
+{
+    display:inline-block;
+    text-align: center;
+    margin:0 auto;
+}
+#formDiv
+{
+    width:auto;
+    border:solid 1px black;
+    float:left;
+    padding:2px;
+    margin:1px;
+    margin-bottom:3px;
+}
+.checkBoxContainer
+{
+border: solid black 1px;
+float:left;
+padding: 2px;
+margin: 1px;
+margin-bottom: 3px;
+}
+.checkBoxContainerCenter
+{
+    border:solid 1px black;
+    margin:1px;
+    padding:2px;
+    margin-bottom:3px;
+}
+.checkBoxList
+{
+    display:none;
+}
+.sideBySide
+{
+    width:50%;
+    height:100%;
+    float:left;
+    overflow-y:auto;
+}
+.tableStyle
+{
+    border:solid 1px black;
+    padding:1px;
+}
+th
+{
+    border-left:solid black 1px;
+}
+.tableStyle tr th
+{
+    font-size:8pt;
+    text-align:center;
+}
+.clear
+{
+    clear:both;
+}
+canvas
+{
+    border:solid black 1px;
+}
+.defaultButton
+{
+    background-color:#aaaaaa;
+    float:right;
+    color:#ffffff;
+    border-radius:8px;
+}
+.defaultButton:hover
+{
+    background-color:#999999;
+}
+.guiCheckboxNoMargin
+{
+    margin-top: -4px;
+    margin-left: 5px;
+}
+.guiCheckboxNoMargin
+{
+    margin-right: 3px;
+}
+.checkmark
+{
+    margin-right: 5px;
+}
+.tabbedContent
+{
+    margin-left:25px;
+}
+
+           
