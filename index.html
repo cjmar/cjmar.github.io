@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Graphing - SolarDB</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="site2.css">
         <script src="site2.js"></script>
+        <title>Graphing - SolarDB</title>
     </head>
     <body>
         <header>
@@ -16,43 +16,42 @@
             <br><br>
             <h4>SolarDB</h4>
             <p>
-            SolarDB is a useful tool which can be used to oversee the overall function of a power plant. 
-            The data used can be found <a href="https://www.kaggle.com/anikannal/solar-power-generation-data">here</a>, it was collected from two solar power plants in India over a period of 34 days. 
-            There are two versions of SolarDB, the interactive one here is served statically over Github Pages, and has included in it about 8 days' worth of information.
-            The other version is built in .NET Core, complete with a SQL database using EF Core.
-            The .NET Core version is intended to be usable as a tool for any power plant who wishes to efficiently save, log, and display day to day operations.
+                SolarDB is a useful tool which can be used to oversee the overall function of a power plant. 
+                The data used can be found <a href="https://www.kaggle.com/anikannal/solar-power-generation-data">here</a>, it was collected from two solar power plants in India over a period of 34 days. 
+                There are two versions of SolarDB, the interactive one here is served statically over Github Pages, and has included in it about 8 days' worth of information.
+                The other version is built in .NET Core, complete with a SQL database using EF Core.
+                The .NET Core version is intended to be usable as a tool for any power plant who wishes to efficiently save, log, and display day to day operations.
             </p>
             <p>
-            At the start, the intended goal was to create a tool to alleviate the complexity of managing information for a large facility.
-            As it sits, SolarDB solves its initial goal in saving and displaying information.
-            The only thing it is missing is an API to add more logs to the database.
-            Most of the work has gone into a hand built interactive graph which can be found in the "Graph Tool" navigation link.
-            For me personally, this project was my deepest delve into Javascript because of the graphing tool and its interface.
+                At the start, the intended goal was to create a tool to alleviate the complexity of managing information for a large facility.
+                As it sits, SolarDB solves its initial goal in saving and displaying information.
+                The only thing it is missing is an API to add more logs to the database.
+                Most of the work has gone into a hand built interactive graph which can be found in the "Graph Tool" navigation link.
+                For me personally, this project was my deepest delve into Javascript because of the graphing tool and its interface.
             </p>
             <p>
-            The information has been broken down into various parts for display.
-            <ul>
-                <li>You can choose to only show data from specific power plants</li>
-                <li>Display only the weather sensor data</li>
-                <li>Display only the power sensor data</li>
-                <li>Choose between displaying an averaged value of all power arrays, or choose a set of specific power arrays </li>
-                <li>Overlay the weather and power graphs on top of each other to compare values</li>
-            </ul>
-            </p>
+                The information has been broken down into various parts for display.
+                <ul>
+                    <li>You can choose to only show data from specific power plants</li>
+                    <li>Display only the weather sensor data</li>
+                    <li>Display only the power sensor data</li>
+                    <li>Choose between displaying an averaged value of all power arrays, or choose a set of specific power arrays </li>
+                    <li>Overlay the weather and power graphs on top of each other to compare values</li>
+                </ul>
+                Included in the original data found on kaggle.com, there are three areas of concern which have been posed.
+                <ul>
+                    <li>Can we predict the power generation for next couple of days? - this allows for better grid management</li>
+                    <li>Can we identify the need for panel cleaning/maintenance?</li>
+                    <li>Can we identify faulty or sub optimally performing equipment?</li>
+                </ul>
             <p>
-            Included in the original data found on kaggle.com, there are three areas of concern which have been posed.
-            <ul>
-                <li>Can we predict the power generation for next couple of days? - this allows for better grid management</li>
-                <li>Can we identify the need for panel cleaning/maintenance?</li>
-                <li>Can we identify faulty or sub optimally performing equipment?</li>
-            </ul>
-            <br>
-            <img src="data/irrid-power-ratio.png" class="image" style="float:right;">
-            SolarDB can answer most of these concerns.
-            The graph tool especially allows for a user to easily see patterns in the data.
-            In this first image it is clear to a user there is a definite ratio between the irradiation values and power output values.
-            This screenshot was taken on the first day, overlaying the irradiation and power graphs for plant 4135001.
-            Knowing this ratio, it should be simple to calculate power generation on average over the course of the next few days, if you have accurate weather forecasting.
+                <a href="data/irrid-power-ratio.png">
+                <img src="data/irrid-power-ratio.png" alt="Irradiation and power output ratio is easy to see" class="image" style="float:right;"></a>
+                SolarDB can answer most of these concerns.
+                The graph tool especially allows for a user to easily see patterns in the data.
+                In this first image it is clear to a user there is a definite ratio between the irradiation values and power output values.
+                This screenshot was taken on the first day, overlaying the irradiation and power graphs for plant 4135001.
+                Knowing this ratio, it should be simple to calculate power generation on average over the course of the next few days, if you have accurate weather forecasting.
             </p>
             <p>
                 Monitoring the irradiation to power output ratio over a period could be used to estimate if an array is in need of cleaning or maintenance. 
@@ -60,7 +59,8 @@
             <div class="clear"></div>
             <br>
             <p>
-                <img src="data/plantoffline.png" class="image" style="float:left">
+                <a href="data/plantoffline.png">
+                <img src="data/plantoffline.png" alt="Entire plant shows values of 0 between 1:30pm and 5:00pm" class="image" style="float:left"></a>
                 Malfunctioning equipment is also easy to spot using the graphing tool.
                 Here on 5/21/2020 you can see the whole plant seems to have gone offline between 1:30pm and 5:00pm. 
                 Looking at the full weather sensor graph for the first 8 days shows five different instances when the sensor turned off.
@@ -71,21 +71,23 @@
             <div class="clear"></div>
             <br>
             <p>
-            At its core, SolarDB is a CRUD application built using .NET Core.
-            It boasts a custom-made graphing tool capable of showing off the data in a useful way for the user.
-            In the future, SolarDB can be upgraded to allow for automatic data analyzation to immediately tag areas of concern for the user.
-            SolarDB would be a perfect tool to help oversee a power plant and act as a solid base to build more tools on top of.
-            I hope you enjoyed reading through this quick write up and playing with my graph, I had a lot of fun making while learning Javascript and hope you had fun finding ways to break it.
+                At its core, SolarDB is a CRUD application built using .NET Core.
+                It boasts a custom-made graphing tool capable of showing off the data in a useful way for the user.
+                In the future, SolarDB can be upgraded to allow for automatic data analyzation to immediately tag areas of concern for the user.
+                SolarDB would be a perfect tool to help oversee a power plant and act as a solid base to build more tools on top of.
+                I hope you enjoyed reading through this quick write up and playing with my graph, I had a lot of fun making this while also learning Javascript and hope you had fun finding ways to break it.
             </p>
             <br>
             <p>
-            Links <br>
-            <a href="https://github.com/cjmar">My Github</a><br>
-            <a href="https://github.com/cjmar/cjmar.github.io">This projects Github.</a><br>
-            <a href="https://github.com/cjmar/SolarDB">The parent .NET Core project Github.</a>
+                Links <br>
+                <a href="https://github.com/cjmar">My Github</a><br>
+                <a href="https://github.com/cjmar/cjmar.github.io">This projects Github.</a><br>
+                <a href="https://github.com/cjmar/SolarDB">The parent .NET Core project Github.</a>
             </p>
             
         </div>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
         <script>
             includeHTML();
         </script>

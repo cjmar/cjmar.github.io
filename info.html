@@ -1,136 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Graphing - SolarDB</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="site2.css">
         <script src="site2.js"></script>
     </head>
     <body>
         <header>
             <div html-include="nav.html"></div>
         </header>
+        <br>
         <div class="container">
-            <main role="main" class="pb-3">
-                <style>
-                    #container1
-                    {
-                        width:100%;
-                        height:100%;
-                    }
-                    .genericContainer
-                    {
-                        height:100%;
-                        float:left;
-                    }
-                    .inlineDiv
-                    {
-                        display:inline-block;
-                        text-align: center;
-                        margin:0 auto;
-                    }
-                    #formDiv
-                    {
-                        width:auto;
-                        border:solid 1px black;
-                        float:left;
-                        padding:2px;
-                        margin:1px;
-                        margin-bottom:3px;
-                    }
-                    .checkBoxContainer
-                    {
-                    border: solid black 1px;
-                    float:left;
-                    padding: 2px;
-                    margin: 1px;
-                    margin-bottom: 3px;
-                    }
-                    .checkBoxContainerCenter
-                    {
-                        border:solid 1px black;
-                        margin:1px;
-                        padding:2px;
-                        margin-bottom:3px;
-                    }
-                    .checkBoxList
-                    {
-                        display:none;
-                    }
-                    .sideBySide
-                    {
-                        width:50%;
-                        height:100%;
-                        float:left;
-                        overflow-y:auto;
-                    }
-                    .tableStyle
-                    {
-                        border:solid 1px black;
-                        padding:1px;
-                    }
-                    th
-                    {
-                        border-left:solid black 1px;
-                    }
-                    .tableStyle tr th
-                    {
-                        font-size:8pt;
-                        text-align:center;
-                    }
-                    .clear
-                    {
-                        clear:both;
-                    }
-                    canvas
-                    {
-                        border:solid black 1px;
-                    }
-                    .defaultButton
-                    {
-                        background-color:#aaaaaa;
-                        float:right;
-                        color:#ffffff;
-                        border-radius:8px;
-                    }
-                    .defaultButton:hover
-                    {
-                        background-color:#999999;
-                    }
-                    .guiCheckboxNoMargin
-                    {
-                        margin-top: -4px;
-                        margin-left: 5px;
-                    }
-                    .guiCheckboxNoMargin
-                    {
-                        margin-right: 3px;
-                    }
-                    .checkmark
-                    {
-                        margin-right: 5px;
-                    }
-                    .tabbedContent
-                    {
-                        margin-left:25px;
-                    }
-
-                </style>
-                <div id="formDiv">
-                    <form method="post" action="">
-                        <label for="dateStart">Start Date</label>
-                        <input type="date" id="startDate" value="2020-05-15" min="2020-05-15" max="2020-05-22"/>
+            <main class="pb-3">
+                <div class="formDiv">
+                        <label for="startDate">Start Date</label>
+                        <input type="date" id="startDate" value="2020-05-15" class="dateBox" min="2020-05-15" max="2020-05-22"/>
                 
-                        <label for="dateEnd">End Date</label>
-                        <input type="date" id="endDate" value="2020-05-16" min="2020-05-16" max="2020-05-23" />
-                        <br />
-                        <div class="clear"></div>
+                        <label for="endDate">End Date</label>
+                        <input type="date" id="endDate" value="2020-05-16" class="dateBox" min="2020-05-16" max="2020-05-23" />
                         <span id="formMessage"></span>
                         <button type="button" class="defaultButton" onclick="formSubmit()">Submit</button>
-                    </form>
                 </div>
-                <div id="textBox">
+                <div class="textBox">
                     <p>Choose the range of dates of data to be graphed.</p>
                 </div>
                 <div class="clear"><br /></div>
@@ -143,11 +37,13 @@
                 </div>
             </main>
         </div>
-        <script type="text/javascript" src="site2.js"></script>
-        <script type="text/javascript" src="data/facilities.js"></script>
-        <script type="text/javascript" src="data/power.js"></script>
-        <script type="text/javascript" src="data/weather.js"></script>
-        <script type="text/javascript" src="data/sources.js"></script>
+        <script src="site2.js"></script>
+        <script src="data/facilities.js"></script>
+        <script src="data/power.js"></script>
+        <script src="data/weather.js"></script>
+        <script src="data/sources.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
         <script>
             includeHTML();
             onReady();
