@@ -1184,4 +1184,3 @@ function checkDateOrder(d1, d2)
     else return false;
 
 }
-
