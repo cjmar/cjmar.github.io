@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="site2.css">
+        <script src="site2.js"></script>
+        <title>Graphing - SolarDB</title>
+    </head>
+    <body>
+        <header>
+            <div html-include="nav.html"></div>
+        </header>
+        <div class="container" style="justify-content:center;justify-content:center;">
+            <p>
+                This is a list of items currently being worked on for either the static version or parent version of SolarDB.
+
+            </p>
+            <div id="cardContainer">
+                <div class="solarCard">
+                    <p class="solarCardTitle">
+                        Upgrade Parent Javascript
+                    </p>
+                    <p class="solarCardBody">
+                        During the construction of the static site, significant improvements were made to the chart and GUI Javascript code. 
+                        The most significant being the date parsing of already loaded data.
+                        Add these improvements to the parent project.
+                    </p>
+                </div>
+                <div class="solarCard">
+                    <p class="solarCardTitle">
+                        Better Javascript Parsing Ability
+                    </p>
+                    <p class="solarCardBody">
+                        In preparation for an API, upgrade the Javascript to find the intersection of two sets of dates.
+                        Using this information it can figure out a smaller set of data to request and add to the current set.
+                    </p>
+                </div>
+                <div class="solarCard">
+                    <p class="solarCardTitle">
+                        Start Creation of RESTful API
+                    </p>
+                    <p class="solarCardBody">
+                        Start by creating a read API for requesting point information from the database.
+                        Part of a larger series of upgrades for easy data access and insertion.
+                    </p>
+                </div>
+                <div class="solarCard">
+                    <p class="solarCardTitle">
+                        Upgrade Javascript to use API
+                    </p>
+                    <p class="solarCardBody">
+                        Every time the submit button is pressed on the parent project, it reloads the entire dataset.
+                        Upgrade the Javascript to only ask for data it doesnt already have and request it from the API.
+                    </p>
+                </div>
+                <div class="solarCard">
+                    <p class="solarCardTitle">
+                        Stop the Page Reloads
+                    </p>
+                    <p class="solarCardBody">
+                        Create Javascript websocket to request data from API without reloading the page.                         
+                    </p>
+                </div>
+                <div class="solarCard">
+                    <p class="solarCardTitle">
+                        Upgrade API to Insert Data
+                    </p>
+                    <p class="solarCardBody">
+                        Upgrade the RESTful API so new information can be sent and added to the database.
+                        The format for the data will follow the original data format found <a href="https://www.kaggle.com/anikannal/solar-power-generation-data">here</a>                        
+                    </p>
+                </div>
+            </div>
+            <br>
+            <div html-include="footer.html"></div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+        <script>
+            includeHTML();
+        </script>
+    </body>
+</html>

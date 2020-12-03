@@ -125,4 +125,36 @@ canvas
     margin-left:25px;
 }
 
-           
+#cardContainer
+{
+    width:100%;
+    height:auto;
+}
+
+.solarCard
+{
+    width:300px;
+    height:300px;
+    border-radius: 8px;
+    border: solid black 1px;
+    float:left;
+    margin:10px;
+}
+
+.solarCardTitle
+{
+    height:20%;
+    text-align: center;
+    font-weight: bold;
+    width:100%;
+    border-bottom: 1px black solid;
+    padding:4px;
+}
+
+.solarCardBody
+{
+    height:85%;
+    width:100%;
+    justify-content: center;
+    padding: 8px;
+}

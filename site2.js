@@ -1066,18 +1066,6 @@ const optionsGUI = (() =>
         else return false;
     };
 
-/*  Input:  None
-*   Output: None
-*   Desc:   Clears all child elements in the guiDiv element
-*/
-    const clearGUIdiv = () =>
-    {
-        while (guiDiv.firstChild())
-        {
-            guiDiv.removeChild(guiDiv.lastChild);
-        }
-    };
-
     return { init, selectEvent, powerGUIselectValidate};
 }
 )();
@@ -1195,4 +1183,5 @@ function checkDateOrder(d1, d2)
     if(day1 < day2) return true;
     else return false;
 
-} 
+}
+
