@@ -1083,7 +1083,7 @@ const optionsGUI = (() =>
 
     https://www.w3schools.com/howto/howto_html_include.asp
 */
-function includeHTML() {
+function includeHTML(title = undefined) {
     var z, i, elmnt, file, xhttp;
     /* Loop through a collection of all HTML elements: */
     z = document.getElementsByTagName("*");
@@ -1100,9 +1100,12 @@ function includeHTML() {
             if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
             /* Remove the attribute, and call this function once more: */
             elmnt.removeAttribute("html-include");
-            includeHTML();
+            includeHTML(title);
           }
         };
+        if(title != undefined)
+            document.title = title;
+
         xhttp.open("GET", file, true);
         xhttp.send();
         /* Exit the function: */

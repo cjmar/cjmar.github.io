@@ -3,10 +3,10 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Graphing - SolarDB</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="site2.css">
         <script src="site2.js"></script>
+        <title></title>
         <link rel="icon" href="data/favicon.ico" type="image/x-icon" />
         <link rel="shortcut icon" href="data/favicon.ico" type="image/x-icon" />
     </head>
@@ -23,6 +23,7 @@
                 
                         <label for="endDate">End Date</label>
                         <input type="date" id="endDate" value="2020-05-16" class="dateBox" min="2020-05-16" max="2020-05-23" />
+                        <br>
                         <span id="formMessage"></span>
                         <button type="button" class="defaultButton" onclick="formSubmit()">Submit</button>
                 </div>
@@ -37,9 +38,9 @@
                 <div class="genericContainer" style="width:25%;margin-left:3px;">
                     <div class="genericContainer" id="GUIcontrol"></div>
                 </div>
-                <div html-include="footer.html"></div>
             </main>
         </div>
+        <div html-include="footer.html"></div>
         <script src="site2.js"></script>
         <script src="data/facilities.js"></script>
         <script src="data/power.js"></script>
@@ -48,7 +49,7 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
         <script>
-            includeHTML();
+            includeHTML("Graphing - SolarDB");
             onReady();
         </script>
     </body>

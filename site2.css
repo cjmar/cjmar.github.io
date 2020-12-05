@@ -63,6 +63,12 @@ margin-bottom: 3px;
     padding:2px;
     margin-bottom:3px;
 }
+
+.leftFloat
+{
+    float:left;
+}
+
 .checkBoxList
 {
     display:none;
@@ -157,4 +163,12 @@ canvas
     width:100%;
     justify-content: center;
     padding: 8px;
+}
+
+.completedBox
+{
+    width: 15px;
+    height: 15px;
+    background-color: red;
+    display:block;
 }

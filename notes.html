@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="site2.css">
         <script src="site2.js"></script>
-        <title>Graphing - SolarDB</title>
+        <title></title>
         <link rel="icon" href="data/favicon.ico" type="image/x-icon" />
         <link rel="shortcut icon" href="data/favicon.ico" type="image/x-icon" />
     </head>
@@ -19,10 +19,11 @@
                 This is a list of items currently being worked on for either the static version or parent version of SolarDB.
 
             </p>
+            <!-- ❌ ✔ Checks for reference. Without a backend I have to copy/paste these cards in anyway-->
             <div id="cardContainer">
                 <div class="solarCard">
                     <p class="solarCardTitle">
-                        Upgrade Parent Javascript
+                        ❌ Upgrade Parent Javascript
                     </p>
                     <p class="solarCardBody">
                         During the construction of the static site, significant improvements were made to the chart and GUI Javascript code. 
@@ -32,7 +33,7 @@
                 </div>
                 <div class="solarCard">
                     <p class="solarCardTitle">
-                        Better Javascript Parsing Ability
+                        ❌ Better Javascript Parsing Ability
                     </p>
                     <p class="solarCardBody">
                         In preparation for an API, upgrade the Javascript to find the intersection of two sets of dates.
@@ -41,7 +42,7 @@
                 </div>
                 <div class="solarCard">
                     <p class="solarCardTitle">
-                        Start Creation of RESTful API
+                        ❌ Start Creation of RESTful API
                     </p>
                     <p class="solarCardBody">
                         Start by creating a read API for requesting point information from the database.
@@ -50,7 +51,7 @@
                 </div>
                 <div class="solarCard">
                     <p class="solarCardTitle">
-                        Stop the Page Reloads
+                        ❌ Stop the Page Reloads
                     </p>
                     <p class="solarCardBody">
                         Create Javascript websocket to request data from API without reloading the page.                         
@@ -58,7 +59,7 @@
                 </div>
                 <div class="solarCard">
                     <p class="solarCardTitle">
-                        Upgrade Javascript to use API
+                        ❌ Upgrade Javascript to use API
                     </p>
                     <p class="solarCardBody">
                         Every time the submit button is pressed on the parent project, it reloads the entire dataset.
@@ -67,7 +68,7 @@
                 </div>
                 <div class="solarCard">
                     <p class="solarCardTitle">
-                        Upgrade API to Insert Data
+                        ❌ Upgrade API to Insert Data
                     </p>
                     <p class="solarCardBody">
                         Upgrade the RESTful API so new information can be sent and added to the database.
@@ -76,12 +77,10 @@
                 </div>
             </div>
             <br>
-            <div html-include="footer.html"></div>
         </div>
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+        <div html-include="footer.html"></div>
         <script>
-            includeHTML();
+            includeHTML("Whats Next - SolarDB");
         </script>
     </body>
 </html>
