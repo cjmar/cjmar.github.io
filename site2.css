@@ -9,8 +9,16 @@
     display:block;
     max-width:50%;
     max-height:50%;
-    width:auto;
+    width:50%;
     height:auto;
+}
+
+.imageIcon
+{
+    width:55px;
+    height:55px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #container1
@@ -171,4 +179,30 @@ canvas
     height: 15px;
     background-color: red;
     display:block;
+}
+
+/* ============ desktop view ============ Bootstrap dropdown nav button*/
+@media all and (min-width: 992px) {
+	.navbar .nav-item .dropdown-menu{ display: none; }
+	.navbar .nav-item:hover .nav-link{ color: #fff;  }
+	.navbar .nav-item:hover .dropdown-menu{ display: block; }
+	.navbar .nav-item .dropdown-menu{ margin-top:0; }
+}	
+/* ============ desktop view .end// ============ */
+
+.face_image
+{
+    display: block;
+    margin-left:auto;
+    margin-right:auto;
+    width:100%;
+    height:auto;
+}
+
+.justifiedCenter
+{
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    width:50%;
 }

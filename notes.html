@@ -16,17 +16,17 @@
         </header>
         <div class="container" style="justify-content:center;justify-content:center;">
             <p>
-                This is a list of items currently being worked on for either the static version or parent version of SolarDB.
+                This is a list of items currently being worked on for my projects.
 
             </p>
             <!-- ❌ ✔ Checks for reference. Without a backend I have to copy/paste these cards in anyway-->
             <div id="cardContainer">
                 <div class="solarCard">
                     <p class="solarCardTitle">
-                        ✔ Upgrade Parent Javascript
+                        ✔ Upgrade SolarDB Parent Javascript
                     </p>
                     <p class="solarCardBody">
-                        During the construction of the static site, significant improvements were made to the chart and GUI Javascript code. 
+                        During the construction of the static site verison of SolarDB, significant improvements were made to the chart and GUI Javascript code. 
                         The most significant being the date parsing of already loaded data.
                         Add these improvements to the parent project.
                     </p>
@@ -36,8 +36,8 @@
                         ❌ Better Javascript Parsing Ability
                     </p>
                     <p class="solarCardBody">
-                        In preparation for an API, upgrade the Javascript to find the intersection of two sets of dates.
-                        Using this information it can figure out a smaller set of data to request and add to the current set.
+                        In preparation for an API in SolarDB, upgrade the Javascript to find the intersection of two sets of dates.
+                        Using this information it can request non redundant data and add it to the current set.
                     </p>
                 </div>
                 <div class="solarCard">
@@ -45,7 +45,7 @@
                         ❌ Start Creation of RESTful API
                     </p>
                     <p class="solarCardBody">
-                        Start by creating a read API for requesting point information from the database.
+                        Start by creating a read API in SolarDB for requesting point information from the database.
                         Part of a larger series of upgrades for easy data access and insertion.
                     </p>
                 </div>
@@ -54,7 +54,7 @@
                         ❌ Stop the Page Reloads
                     </p>
                     <p class="solarCardBody">
-                        Create Javascript websocket to request data from API without reloading the page.                         
+                        Create Javascript websocket to request data from SolarDB API without reloading the page.                         
                     </p>
                 </div>
                 <div class="solarCard">
@@ -63,7 +63,7 @@
                     </p>
                     <p class="solarCardBody">
                         Every time the submit button is pressed on the parent project, it reloads the entire dataset.
-                        Upgrade the Javascript to only ask for data it doesnt already have and request it from the API.
+                        Upgrade the Javascript to only ask for data it doesnt already have and request it from the SolarDB API.
                     </p>
                 </div>
                 <div class="solarCard">
@@ -71,16 +71,16 @@
                         ❌ Upgrade API to Insert Data
                     </p>
                     <p class="solarCardBody">
-                        Upgrade the RESTful API so new information can be sent and added to the database.
-                        The format for the data will follow the original data format found <a href="https://www.kaggle.com/anikannal/solar-power-generation-data">here</a>                        
+                        Upgrade the SolarDB RESTful API so new information can be sent and added to the database.
+                        The format for the data will follow the original data format found <a href="https://www.kaggle.com/anikannal/solar-power-generation-data">here</a>.                        
                     </p>
                 </div>
             </div>
             <br>
         </div>
-        <div class = " clear container" html-include="footer.html"></div>
+        <div class = "clear container" html-include="footer.html"></div>
         <script>
-            includeHTML("Whats Next - SolarDB");
+            includeHTML("Whats Next");
         </script>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
