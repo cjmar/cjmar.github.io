@@ -139,23 +139,15 @@ canvas
     margin-left:25px;
 }
 
-#cardContainer
+.siteCard
 {
-    width:100%;
-    height:auto;
-}
-
-.solarCard
-{
-    width:300px;
     height:300px;
     border-radius: 8px;
     border: solid black 1px;
-    float:left;
-    margin:10px;
+    margin-bottom:20px;
 }
 
-.solarCardTitle
+.siteCardTitle
 {
     height:20%;
     text-align: center;
@@ -165,11 +157,11 @@ canvas
     padding:4px;
 }
 
-.solarCardBody
+.siteCardBody
 {
     height:85%;
     width:100%;
-    justify-content: center;
+    justify-content:center;
     padding: 8px;
 }
 

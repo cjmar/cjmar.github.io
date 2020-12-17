@@ -10,75 +10,100 @@
         <link rel="icon" href="data/favicon.ico" type="image/x-icon" />
         <link rel="shortcut icon" href="data/favicon.ico" type="image/x-icon" />
     </head>
-    <body>
+    <body class="d-flex flex-column min-vh-100">
         <header>
             <div html-include="nav.html"></div>
         </header>
-        <div class="container" style="justify-content:center;justify-content:center;">
-            <p>
+        <div class="container">
+            <p class="text-center">
                 This is a list of items currently being worked on for my projects.
-
             </p>
-            <!-- ❌ ✔ Checks for reference. Without a backend I have to copy/paste these cards in anyway-->
-            <div id="cardContainer">
-                <div class="solarCard">
-                    <p class="solarCardTitle">
+            <div class="container">
+            <div class="row">
+            <!-- ❌ ✔ 🔀 For reference. Without a backend I have to copy/paste these cards in anyway-->
+            <div class="col-12 col-md-4">
+                    <div class="siteCard">
+                    <p class="siteCardTitle">
+                        🔀 Non Planned Upgrades
+                    </p>
+                    <p class="siteCardBody">
+                        Ongoing updating and adding of generic upgrades to the static site.
+                        These are unscheduled additions to the website for design or content purposes.
+                        Can include re-structuring of navigation, renaming files, or adding new content as needed.                   
+                    </p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="siteCard">
+                    <p class="siteCardTitle">
                         ✔ Upgrade SolarDB Parent Javascript
                     </p>
-                    <p class="solarCardBody">
+                    <p class="siteCardBody">
                         During the construction of the static site verison of SolarDB, significant improvements were made to the chart and GUI Javascript code. 
                         The most significant being the date parsing of already loaded data.
                         Add these improvements to the parent project.
                     </p>
                 </div>
-                <div class="solarCard">
-                    <p class="solarCardTitle">
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="siteCard">
+                    <p class="siteCardTitle">
                         ❌ Better Javascript Parsing Ability
                     </p>
-                    <p class="solarCardBody">
+                    <p class="siteCardBody">
                         In preparation for an API in SolarDB, upgrade the Javascript to find the intersection of two sets of dates.
                         Using this information it can request non redundant data and add it to the current set.
                     </p>
+                    </div>
                 </div>
-                <div class="solarCard">
-                    <p class="solarCardTitle">
+                <div class="col-12 col-md-4">
+                    <div class="siteCard">
+                    <p class="siteCardTitle">
                         ❌ Start Creation of RESTful API
                     </p>
-                    <p class="solarCardBody">
+                    <p class="siteCardBody">
                         Start by creating a read API in SolarDB for requesting point information from the database.
                         Part of a larger series of upgrades for easy data access and insertion.
                     </p>
+                    </div>
                 </div>
-                <div class="solarCard">
-                    <p class="solarCardTitle">
+                <div class="col-12 col-md-4">
+                    <div class="siteCard">
+                    <p class="siteCardTitle">
                         ❌ Stop the Page Reloads
                     </p>
-                    <p class="solarCardBody">
+                    <p class="siteCardBody">
                         Create Javascript websocket to request data from SolarDB API without reloading the page.                         
                     </p>
+                    </div>
                 </div>
-                <div class="solarCard">
-                    <p class="solarCardTitle">
+                <div class="col-12 col-md-4">
+                    <div class="siteCard">
+                    <p class="siteCardTitle">
                         ❌ Upgrade Javascript to use API
                     </p>
-                    <p class="solarCardBody">
+                    <p class="siteCardBody">
                         Every time the submit button is pressed on the parent project, it reloads the entire dataset.
                         Upgrade the Javascript to only ask for data it doesnt already have and request it from the SolarDB API.
                     </p>
+                    </div>
                 </div>
-                <div class="solarCard">
-                    <p class="solarCardTitle">
+                <div class="col-12 col-md-4">
+                    <div class="siteCard">
+                    <p class="siteCardTitle">
                         ❌ Upgrade API to Insert Data
                     </p>
-                    <p class="solarCardBody">
+                    <p class="siteCardBody">
                         Upgrade the SolarDB RESTful API so new information can be sent and added to the database.
                         The format for the data will follow the original data format found <a href="https://www.kaggle.com/anikannal/solar-power-generation-data">here</a>.                        
                     </p>
+                    </div>
                 </div>
             </div>
-            <br>
         </div>
-        <div class = "clear container" html-include="footer.html"></div>
+        <br>
+        </div>
+        <footer class="mt-auto text-center" html-include="footer.html"></footer>
         <script>
             includeHTML("Whats Next");
         </script>
