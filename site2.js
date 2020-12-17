@@ -40,3 +40,24 @@ function includeHTML(title = undefined) {
       }
     }
   }
+
+/*  Input:  time int, url string
+*   Output: None
+*   Desc:   Waits the desired seconds and then redirects to the url, counting down every second
+*/
+function redirectTimer(time, url)
+{
+    let timed = document.getElementById("timedText");
+    let interval = setInterval(function()
+    {
+      timed.innerHTML = "You will be redirected to the home page in " + time + " seconds";
+      time--;
+      console.log(time);
+
+      if(time <= 0)
+      {
+        clearInterval(interval);
+        window.location.replace(url);
+      }
+    }, 1000);
+}
