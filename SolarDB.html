@@ -21,13 +21,13 @@
                 SolarDB is a useful tool which can be used to oversee the overall function of a power plant. 
                 The data used can be found <a href="https://www.kaggle.com/anikannal/solar-power-generation-data">here</a>, it was collected from two solar power plants in India over a period of 34 days. 
                 There are two versions of SolarDB, the interactive one here is served statically over Github Pages, and has included in it about 8 days' worth of information.
-                The other version is built in .NET Core, complete with a SQL database using EF Core.
+                The other version is built in .NET Core, complete with a SQL database using EF Core and loaded with all 34 days' worth of information.
                 The .NET Core version is intended to be usable as a tool for any power plant who wishes to efficiently save, log, and display day to day operations.
             </p>
             <p>
                 At the start, the intended goal was to create a tool to alleviate the complexity of managing information for a large facility.
                 As it sits, SolarDB solves its initial goal in saving and displaying information.
-                The only thing it is missing is an API to add more logs to the database.
+                The only thing currently missing is a RESTful API to add more logs to the database.
                 Most of the work has gone into a hand built interactive graph which can be found in the "Graph Tool" navigation link.
                 For me personally, this project was my deepest delve into Javascript because of the graphing tool and its interface.
             </p>
@@ -40,7 +40,7 @@
                     <li>Choose between displaying an averaged value of all power arrays, or choose a set of specific power arrays </li>
                     <li>Overlay the weather and power graphs on top of each other to compare values</li>
                 </ul>
-                Included in the original data found on kaggle.com, there are three areas of concern which have been posed.
+                Included in the original data found on kaggle.com, there are also three areas of concern which have been posed.
                 <ul>
                     <li>Can we predict the power generation for next couple of days? - this allows for better grid management</li>
                     <li>Can we identify the need for panel cleaning/maintenance?</li>
@@ -53,7 +53,7 @@
                 The graph tool especially allows for a user to easily see patterns in the data.
                 In this first image it is clear to a user there is a definite ratio between the irradiation values and power output values.
                 This screenshot was taken on the first day, overlaying the irradiation and power graphs for plant 4135001.
-                Knowing this ratio, it should be simple to calculate power generation on average over the course of the next few days, if you have accurate weather forecasting.
+                Knowing this ratio, it should be simple to calculate power generation on average over the course of the next few days as long as you have accurate weather forecasting.
             </p>
             <p>
                 Monitoring the irradiation to power output ratio over a period could be used to estimate if an array is in need of cleaning or maintenance. 
@@ -64,19 +64,19 @@
                 <a href="data/plantoffline.png">
                 <img src="data/plantoffline.png" alt="Entire plant shows values of 0 between 1:30pm and 5:00pm" class="image" style="float:left"></a>
                 Malfunctioning equipment is also easy to spot using the graphing tool.
-                Here on 5/21/2020 you can see the whole plant seems to have gone offline between 1:30pm and 5:00pm. 
-                Looking at the full weather sensor graph for the first 8 days shows five different instances when the sensor turned off.
-                Plant 4136001 appears to be suffering a massive issue concerning its power arrays.
-                Browsing specific power arrays in plant 4136001 shows there are many times when an array goes out for a long period of time.
-                The overall output from plant 4136001 is also a tenth of the output of plant 4135001.
+                Here on 5/21/2020 you can see the entire plant seems to have gone offline between 1:30pm and 5:00pm. 
+                Looking at the full weather sensor graph for the first 8 days shows five different instances where the sensor was offline.
+                Plant 4136001 also appears to be suffering a massive issue concerning its power arrays.
+                Browsing specific power arrays in plant 4136001 shows there are many times when an array goes out for a long period.
+                Most likely as a consequence of array failure, the overall output from plant 4136001 is a tenth of the output of plant 4135001.
             </p>
             <div class="clear"></div>
             <br>
             <p>
-                At its core, SolarDB is a CRUD application built using .NET Core.
+                At its core, SolarDB is a solid application which can serve as the base platform for more tools and data analytics.
                 It boasts a custom-made graphing tool capable of showing off the data in a useful way for the user.
                 In the future, SolarDB can be upgraded to allow for automatic data analyzation to immediately tag areas of concern for the user.
-                SolarDB would be a perfect tool to help oversee a power plant and act as a solid base to build more tools on top of.
+                As it is a web application, a full suite of communication software could be considered so the plant team immediately knows when something is wrong.
                 If you would like to play with the graphing tool, it can be found <a href="SolarGraph.html">here</a>. 
                 I hope you enjoyed reading through this quick write up and playing with my graph, I had a lot of fun making this while also learning Javascript and hope you had fun finding ways to break it.
             </p>
